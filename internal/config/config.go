@@ -15,7 +15,7 @@ type Config struct {
 	IsProduction   bool   `mapstructure:"is_production"`
 	ServicePort    int    `mapstructure:"service_port"`
 	ExternalAPIURL string `mapstructure:"external_api_url"`
-	DatabaseURL    string `mapstructure:"database_url"`
+	CacheURL       string `mapstructure:"cache_url"`
 }
 
 // LoadConfig loads the application's configuration using the Viper library.
@@ -23,7 +23,7 @@ type Config struct {
 func LoadConfig() (*Config, error) {
 	viper.SetConfigName("application") // Name of the configuration file
 	viper.SetConfigType("yaml")        // Configuration file type (e.g., yaml, json)
-	viper.AddConfigPath(".")           // Path where to search for the configuration file
+	viper.AddConfigPath("/config")     // Path where to search for the configuration file
 
 	// Attempt to read the configuration file.
 	if err := viper.ReadInConfig(); err != nil {
@@ -33,7 +33,7 @@ func LoadConfig() (*Config, error) {
 			return nil, fmt.Errorf("error reading config file: %w", err)
 		}
 		// Config file not found; carry on.  We will try to load from ENV
-		fmt.Println("No application.yaml file found, using environment variables")
+		fmt.Println("No /config/application.yaml file found, using environment variables")
 	}
 
 	// Load .env file if it exists.  This will not override existing environment variables.
@@ -48,7 +48,7 @@ func LoadConfig() (*Config, error) {
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_")) // Replace . with _ in env vars
 
 	//check if all required ENVs are set
-	requiredVars := []string{"log_level", "service_port", "external_api_url", "database_url"} // in viper
+	requiredVars := []string{"log_level", "service_port", "external_api_url", "cache_url"} // in viper
 	var missingVars []string
 	for _, key := range requiredVars {
 		if !viper.IsSet(key) {
@@ -65,7 +65,7 @@ func LoadConfig() (*Config, error) {
 	config.IsProduction = viper.GetBool("is_production")
 	config.ServicePort = viper.GetInt("service_port")
 	config.ExternalAPIURL = viper.GetString("external_api_url")
-	config.DatabaseURL = viper.GetString("database_url")
+	config.CacheURL = viper.GetString("cache_url")
 
 	return &config, nil
 }

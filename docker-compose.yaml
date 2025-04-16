@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  datasource-adapter:
+    image: myapp:latest
+    container_name: datasource_adapter
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./application.yaml:/config/application.yaml
+    restart: no

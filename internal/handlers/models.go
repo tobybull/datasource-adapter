@@ -1,4 +1,4 @@
-package api
+package handlers
 
 type Query struct {
 	Id                string                 `json:"id" binding:"required"`

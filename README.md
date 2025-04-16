@@ -5,13 +5,13 @@ The project name "datasource-adapter" should match the name of the git repo
 ## Run locally
 
 ```bash
-go run ./cmd/foobar-adapter/main.go
+go run ./cmd/foobar-handlers/main.go
 ```
 
 ## Build the binary and run
 ```bash
 go build . 
-./datasource-adapter
+./datasource-handlers
 ```
 
 ## Configuration

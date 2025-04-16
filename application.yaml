@@ -1,6 +1,6 @@
 # application.yaml
 log_level: debug
 is_production: false
-service_port: 8080
+service_port: 9000
 external_api_url: "https://api.example.com/v1"
-database_url: "postgres://user:pass@host:port/dbname"
+cache_url: "postgres://user:pass@host:port/dbname"
